@@ -1,0 +1,35 @@
+{
+  "name": "fastify-ns-couchbase",
+  "description": "Fastify Couchbase connection plugin",
+  "version": "0.1.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "eslint ./index.js && tap ./test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DinakaranS/fastify-ns-couchbase.git"
+  },
+  "keywords": [
+    "fastify",
+    "plugin",
+    "couchbase"
+  ],
+  "author": "Dinakaran S",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DinakaranS/fastify-ns-couchbase/issues"
+  },
+  "homepage": "https://github.com/DinakaranS/fastify-ns-couchbase#readme",
+  "dependencies": {
+    "couchbase": "^3.2.3",
+    "fastify-plugin": "^3.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.4.1",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.3",
+    "fastify": "^3.24.1",
+    "tap": "^15.1.5"
+  }
+}
