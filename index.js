@@ -4,10 +4,7 @@ const fp = require('fastify-plugin');
 const couchbase = require('couchbase');
 
 function fastifyCouchbase(fastify, options, next) {
-  couchbase.connect(options.url, {
-    username: options.username,
-    password: options.password,
-  }).then((cluster) => {
+  couchbase.connect(options.url, { ...options }).then((cluster) => {
     const bucket = cluster.bucket(options.bucketName);
     const cb = {
       cluster,

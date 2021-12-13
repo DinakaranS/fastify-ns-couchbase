@@ -1,7 +1,7 @@
 {
   "name": "fastify-ns-couchbase",
   "description": "Fastify Couchbase connection plugin",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "index.js",
   "scripts": {
     "test": "eslint ./index.js && tap ./test.js"
