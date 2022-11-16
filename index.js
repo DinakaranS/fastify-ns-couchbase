@@ -3,22 +3,27 @@
 const fp = require('fastify-plugin');
 const couchbase = require('couchbase');
 
-function fastifyCouchbase(fastify, options, next) {
-  couchbase.connect(options.url, { ...options }).then((cluster) => {
-    const bucket = cluster.bucket(options.bucketName);
-    const cb = {
-      cluster,
-      bucket,
-    };
+async function fastifyCouchbase(fastify, cBOptions, next) {
+  try {
+    const { options = {}, settings = {} } = cBOptions;
+    const cluster = await couchbase.connect(options.url, {
+      ...options
+    });
+
+    // Sets a pre-configured profile called "wanDevelopment" to help avoid latency issues
+    // when accessing Capella from a different Wide Area Network
+    // or Availability Zone (e.g. your laptop).
+    if (settings.applyProfile) cluster.applyProfile('wanDevelopment');
+    const bucket = cluster.bucket(settings.bucketName);
+    const collection = bucket.scope(settings.scope || '_default').collection(settings.collection || '_default');
+    const cb = { bucket, collection, cluster };
     fastify
       .decorate('cb', cb)
       .addHook('onClose', close);
     return next();
-  }).catch((err) => {
-    if (err) {
-      return next(err);
-    }
-  });
+  } catch (e) {
+    return next(e);
+  }
 }
 
 function close(fastify, done) {
